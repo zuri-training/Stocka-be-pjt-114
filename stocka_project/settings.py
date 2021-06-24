@@ -41,6 +41,21 @@ INSTALLED_APPS = [
     # apps
     'stocka_api',
     'users',
+    'django.contrib.sites',
+
+    # User Created Appps
+    'stocka_api.apps.StockaApiConfig',
+
+    # 3rd Party Apps
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth',
+    'rest_auth.registration',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
 ]
 
 MIDDLEWARE = [
@@ -73,6 +88,24 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'stocka_project.wsgi.application'
 
+
+# Auth Settings
+AUTHENTICATION_BACKENDS = [
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 3
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
+
+
+# Email Backend
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -117,6 +150,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+SITE_ID = 1
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/

@@ -23,4 +23,7 @@ urlpatterns = [
     # path('stocka_api/v1/rest-auth/', include('rest_auth.urls')),  # login & logout endpoints
     
     # path('rest-auth/registration/', include('rest_auth.registration.urls'))    # signup endpoints
+    path('accounts/', include('allauth.urls')),
+    path('api/accounts/', include('rest_auth.urls')),
+	path('api/accounts/registration/', include('rest_auth.registration.urls')),
 ]
