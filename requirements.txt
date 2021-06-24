@@ -1,6 +1,16 @@
 asgiref==3.3.4
+autopep8==1.5.7
+Babel==2.9.1
 Django==3.2.4
+django-filter==2.4.0
+django-money==2.0
 djangorestframework==3.12.4
+Markdown==3.3.4
+psycopg2==2.9.1
+psycopg2-binary==2.9.1
+py-moneyed==1.2
+pycodestyle==2.7.0
 python-decouple==3.4
 pytz==2021.1
 sqlparse==0.4.1
+toml==0.10.2

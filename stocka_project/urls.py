@@ -14,8 +14,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # path('stocka_api/v1/', include('stocka_api.urls')),
+    # path('stocka_api/v1/users/', include('users.urls')),
+    # path('stocka_api/v1/rest-auth/', include('rest_auth.urls')),  # login & logout endpoints
+    
+    # path('rest-auth/registration/', include('rest_auth.registration.urls'))    # signup endpoints
 ]
