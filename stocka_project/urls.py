@@ -18,12 +18,11 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('stocka_api/v1/', include('stocka_api.urls')),
-    # path('stocka_api/v1/users/', include('users.urls')),
-    # path('stocka_api/v1/rest-auth/', include('rest_auth.urls')),  # login & logout endpoints
-    
-    # path('rest-auth/registration/', include('rest_auth.registration.urls'))    # signup endpoints
+    path('stocka_api/v1/', include('stocka_api.urls')),
+    path('stocka_api/v1/', include('users.urls')),
+    path('stocka_api/v1/rest-auth/', include('rest_auth.urls')),  # login & logout endpoints
+    path('stocka_api/v1/rest-auth/registration/', include('rest_auth.registration.urls')),    # signup endpoints
     path('accounts/', include('allauth.urls')),
-    path('api/accounts/', include('rest_auth.urls')),
-	path('api/accounts/registration/', include('rest_auth.registration.urls')),
+    # path('api/accounts/', include('rest_auth.urls')),
+	# path('api/accounts/registration/', include('rest_auth.registration.urls')),
 ]
