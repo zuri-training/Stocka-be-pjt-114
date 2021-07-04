@@ -15,6 +15,21 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_auth.views import PasswordResetConfirmView
+from allauth.account.views import confirm_email
+from django.conf.urls import url
+from users import views
+from rest_framework import permissions
+
+
+# Schema and documentation
+from rest_framework.documentation import include_docs_urls
+from rest_framework.schemas import get_schema_view
+
+API_TITLE = "Stocka API"  
+API_DESCRIPTION = "A Web API to the Stocka Project."
+coreapi_schema_view = get_schema_view(title=API_TITLE)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,6 +38,14 @@ urlpatterns = [
     path('stocka_api/v1/rest-auth/', include('rest_auth.urls')),  # login & logout endpoints
     path('stocka_api/v1/rest-auth/registration/', include('rest_auth.registration.urls')),    # signup endpoints
     path('accounts/', include('allauth.urls')),
-    # path('api/accounts/', include('rest_auth.urls')),
-	# path('api/accounts/registration/', include('rest_auth.registration.urls')),
+
+    # urls to password reset and registration verification
+    url(r"stocka_api/v1/accounts-rest/registration/account-confirm-email/(?P<key>.+)/$", confirm_email,name="account_confirm_email"),
+    url(r"^stocka_api/v1/registration/complete/$", views.success_view, name="account_confirm_complete"),
+    path("stocka_api/v1/password_reset/",include("django_rest_passwordreset.urls", namespace="password_reset")),
+    
+    # urls to the schema and doc
+    path('docs/', include_docs_urls(title=API_TITLE, description=API_DESCRIPTION)),
+    path("schema/", coreapi_schema_view),
+
 ]

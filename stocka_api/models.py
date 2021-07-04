@@ -26,10 +26,6 @@ from stocka_project import settings
 #         return self.name
 
 
-# class ProductBarcode(models.Models):
-#     barcode = models.CharField(
-#         max_length=255, null=True, blank=True, unique=True)
-
 
 # class Product(models.Model):
 #     item_name = models.CharField(max_length=255,unique=True)
@@ -40,12 +36,19 @@ from stocka_project import settings
 #     vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)
 #     quantity = models.PositiveIntegerField(default=0)
 #     quantity_type = models.CharField(max_length=2, choices=QUANTITY_TYPE)
-#     barcode = models.OneToOneField(ProductBarcode, on_delete=models.CASCADE)
+#     # barcode = models.OneToOneField(ProductBarcode, on_delete=models.CASCADE)
+#     barcode = models.CharField(
+#         max_length=255, null=True, blank=True, unique=True)
 
 
 #     def __str__(self):
 #         return self.item_name
 
+
+# class ProductBarcode(models.Models):
+#     # barcode = models.CharField(
+#     #     max_length=255, null=True, blank=True, unique=True)
+#     product = models.OneToOneField(Product, on_delete=models.CASCADE)
 
 # class Sale(models.Model):
 #     item = models.ForeignKey(Product, on_delete=models.CASCADE)
