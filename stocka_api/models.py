@@ -58,6 +58,7 @@ class Sale(models.Model):
     quantity = models.PositiveIntegerField(default=0, null=True, blank=True)
     quantity_type = models.CharField(max_length=2, choices=QUANTITY_TYPE, default=QUANTITY_TYPE[1][0])
     selling_price = models.DecimalField(max_digits=12, decimal_places=2)
+    date_sales_made = models.DateTimeField(auto_now_add=True)
     # barcode = models.OneToOneField(ProductBarcode, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -70,6 +71,7 @@ class Purchase(models.Model):
     quantity_type = models.CharField(max_length=2, choices=QUANTITY_TYPE, default=QUANTITY_TYPE[1][0])
     cost_price = models.DecimalField(max_digits=12, decimal_places=2)
     # barcode = models.OneToOneField(ProductBarcode, on_delete=models.CASCADE)
+    date_purchase_made = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.item.item_name
