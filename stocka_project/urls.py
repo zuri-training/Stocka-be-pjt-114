@@ -22,14 +22,29 @@ from users import views
 from rest_framework import permissions
 
 
-# Schema and documentation
+#  Documentation
 from rest_framework.documentation import include_docs_urls
-from rest_framework.schemas import get_schema_view
+
+
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
 
 API_TITLE = "Stocka API"  
 API_DESCRIPTION = "A Web API to the Stocka Project."
-coreapi_schema_view = get_schema_view(title=API_TITLE)
 
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title="Snippets API",
+        default_version='v1',
+        description="Test description",
+        terms_of_service="https://www.google.com/policies/terms/",
+        contact=openapi.Contact(email="contact@snippets.local"),
+        license=openapi.License(name="BSD License"),
+    ),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -44,8 +59,13 @@ urlpatterns = [
     url(r"^stocka_api/v1/registration/complete/$", views.success_view, name="account_confirm_complete"),
     path("stocka_api/v1/password_reset/",include("django_rest_passwordreset.urls", namespace="password_reset")),
     
-    # urls to the schema and doc
+    # urls to the doc
     path('docs/', include_docs_urls(title=API_TITLE, description=API_DESCRIPTION)),
-    path("schema/", coreapi_schema_view),
 
+
+    # Swagger Documentation
+    path('swagger/', schema_view.with_ui('swagger',
+        cache_timeout=0), name='schema-swagger-ui'),
+    path('redoc/', schema_view.with_ui('redoc',
+        cache_timeout=0), name='schema-redoc'),
 ]

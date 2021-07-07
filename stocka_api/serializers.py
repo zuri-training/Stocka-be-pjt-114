@@ -9,11 +9,6 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-# class ProductBarcodeSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = ProductBarcode
-#         fields = '__all__'
-
 
 class VendorSerializer(serializers.ModelSerializer):
     class Meta:

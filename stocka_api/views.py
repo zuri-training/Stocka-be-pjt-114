@@ -7,7 +7,7 @@ from .models import (
     Product, Sale, Purchase, Vendor, Category
 )
 from rest_framework.response import Response
-from rest_framework import generics, status, permissions
+from rest_framework import generics
 
 # Create your views here.
 
@@ -42,32 +42,14 @@ class CategoryDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CategorySerializer
     queryset = Category.objects.all()
 
-# # Lists all product barcodes and creates product category instances
-# class ProductBarcodeListView(generics.ListCreateAPIView):
-#     serializer_class = ProductBarcodeSerializer
-#     queryset = ProductBarcode.objects.all()
-
-# # Retrieves, updates and deletes product barcodes instances
-# class ProductBarcodeDetailView(generics.RetrieveUpdateDestroyAPIView):
-#     serializer_class = ProductBarcodeSerializer
-#     queryset = ProductBarcode.objects.all()
 
 # Lists all sales and creates sale instances
 class SaleListView(generics.ListCreateAPIView):
     serializer_class = SaleSerializer
     queryset = Sale.objects.all()
 
-# # Retrieves, updates and deletes product barcodes instances
-# class SaleDetailView(generics.RetrieveUpdateDestroyAPIView):
-#     serializer_class = SaleSerializer
-#     queryset = Sale.objects.all()
 
 # Lists all purchases and creates purchase instances
 class PurchaseListView(generics.ListCreateAPIView):
     serializer_class = PurchaseSerializer
     queryset = Purchase.objects.all()
-
-
-# class PurchaseDetailView(generics.RetrieveUpdateDestroyAPIView):
-#     serializer_class = PurchaseSerializer
-#     queryset = Purchase.objects.all()
