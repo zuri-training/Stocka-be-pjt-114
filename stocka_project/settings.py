@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     # 3rd Party Apps
     'rest_framework',
     'rest_framework.authtoken',
+    "migration_fixer",
 
     # django-allauth and django-rest-auth
     'rest_auth',
@@ -122,7 +123,7 @@ ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = "account_confirm_complete"
 ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = "account_confirm_complete"
 
 
-# Email Backend
+#Email Backend
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = config('EMAIL_HOST')
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
