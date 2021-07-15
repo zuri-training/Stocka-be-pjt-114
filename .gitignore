@@ -1,12 +1,6 @@
 stockaEnv
-<<<<<<< HEAD
-__pycache__/
-db.sqlite3
-.env
-=======
 .env
 __pycache__
-db.sqlite3
 
 
 # Created by https://www.toptal.com/developers/gitignore/api/django
@@ -17,8 +11,6 @@ db.sqlite3
 *.pot
 *.pyc
 __pycache__/
-local_settings.py
-db.sqlite3
 db.sqlite3-journal
 media
 
@@ -115,7 +107,8 @@ ipython_config.py
 #   However, in case of collaboration, if having platform-specific dependencies or dependencies
 #   having no cross-platform support, pipenv may install dependencies that don't work, or not
 #   install all needed dependencies.
-#Pipfile.lock
+Pipfile
+Pipfile.lock
 
 # PEP 582; used by e.g. github.com/David-OConnor/pyflow
 __pypackages__/
@@ -161,4 +154,3 @@ dmypy.json
 cython_debug/
 
 # End of https://www.toptal.com/developers/gitignore/api/django
->>>>>>> 5ce9faee7c6d543db3965a01e2180dac7d7323ff

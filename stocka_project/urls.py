@@ -15,37 +15,83 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from rest_auth.views import PasswordResetConfirmView
-from allauth.account.views import confirm_email
+from django.views.generic import TemplateView, RedirectView
 from django.conf.urls import url
-from users import views
+from django.contrib.auth import views
+from allauth.account.views import confirm_email
+
+from drf_yasg import openapi
+from drf_yasg.views import get_schema_view
+#from rest_auth.views import PasswordResetConfirmView
 from rest_framework import permissions
-
-
-# Schema and documentation
+#  Documentation
 from rest_framework.documentation import include_docs_urls
-from rest_framework.schemas import get_schema_view
 
-API_TITLE = "Stocka API"  
+API_TITLE = "Stocka API"
 API_DESCRIPTION = "A Web API to the Stocka Project."
-coreapi_schema_view = get_schema_view(title=API_TITLE)
 
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title="Snippets API",
+        default_version='v1',
+        description="Test description",
+        terms_of_service="https://www.google.com/policies/terms/",
+        contact=openapi.Contact(email="contact@snippets.local"),
+        license=openapi.License(name="BSD License"),
+    ),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('stocka_api/v1/', include('stocka_api.urls')),
     path('stocka_api/v1/', include('users.urls')),
-    path('stocka_api/v1/rest-auth/', include('rest_auth.urls')),  # login & logout endpoints
-    path('stocka_api/v1/rest-auth/registration/', include('rest_auth.registration.urls')),    # signup endpoints
+    # login & logout endpoints
+    path('stocka_api/v1/rest-auth/', include('rest_auth.urls')),
+    path('stocka_api/v1/rest-auth/registration/',
+         include('rest_auth.registration.urls')),    # signup endpoints
     path('accounts/', include('allauth.urls')),
 
     # urls to password reset and registration verification
-    url(r"stocka_api/v1/accounts-rest/registration/account-confirm-email/(?P<key>.+)/$", confirm_email,name="account_confirm_email"),
-    url(r"^stocka_api/v1/registration/complete/$", views.success_view, name="account_confirm_complete"),
-    path("stocka_api/v1/password_reset/",include("django_rest_passwordreset.urls", namespace="password_reset")),
-    
-    # urls to the schema and doc
-    path('docs/', include_docs_urls(title=API_TITLE, description=API_DESCRIPTION)),
-    path("schema/", coreapi_schema_view),
 
+
+    url(
+        r'^stocka_api/v1/accounts-rest/password_change/$', views.PasswordChangeView.as_view(),
+        name='password_change'),
+    url(
+        r'^stocka_api/v1/accounts-rest/password_change/done/$',
+        views.PasswordChangeDoneView.as_view(),
+        name='password_change_done'),
+    url(
+        r'^stocka_api/v1/accounts-rest/password_reset/$', views.PasswordResetView.as_view(),
+        name='password_reset'
+        ),
+    url(
+        r'^stocka_api/v1/accounts-rest/done/$',
+        views.PasswordResetDoneView.as_view(),
+        name='password_reset_done'),
+    url(
+        r'^stocka_api/v1/accounts-rest/password_reset/done/$',
+        views.PasswordResetDoneView.as_view(),
+        name='password_reset_done'),
+
+    
+    url(
+        r'^password-reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+
+    url(
+        r'^stocka_api/v1/accounts-rest/registration/account-confirm-email/(?P<key>.+)/$',
+        confirm_email, name='account_confirm_email'),
+
+    # urls to the doc
+    path('docs/', include_docs_urls(title=API_TITLE, description=API_DESCRIPTION)),
+
+
+    # Swagger Documentation
+    path('swagger/', schema_view.with_ui('swagger',
+                                         cache_timeout=0), name='schema-swagger-ui'),
+    path('redoc/', schema_view.with_ui('redoc',
+                                       cache_timeout=0), name='schema-redoc'),
 ]

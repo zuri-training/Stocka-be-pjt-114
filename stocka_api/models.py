@@ -1,5 +1,5 @@
 from django.db import models
-from stocka_project import settings
+from django.utils import timezone
 
 # Create your models here.
 QUANTITY_TYPE = (
@@ -45,19 +45,13 @@ class Product(models.Model):
         return self.item_name
 
 
-# class ProductBarcode(models.Model):
-#     barcode = models.CharField(
-#         max_length=255, null=True, blank=True, unique=True)
-#     product = models.OneToOneField(Product, on_delete=models.CASCADE)
-
-#     def __str__(self):
-#         return self.product.item_name
 
 class Sale(models.Model):
     item = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=0, null=True, blank=True)
     quantity_type = models.CharField(max_length=2, choices=QUANTITY_TYPE, default=QUANTITY_TYPE[1][0])
     selling_price = models.DecimalField(max_digits=12, decimal_places=2)
+    date_sales_made = models.DateTimeField(default=timezone.now)
     # barcode = models.OneToOneField(ProductBarcode, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -70,6 +64,7 @@ class Purchase(models.Model):
     quantity_type = models.CharField(max_length=2, choices=QUANTITY_TYPE, default=QUANTITY_TYPE[1][0])
     cost_price = models.DecimalField(max_digits=12, decimal_places=2)
     # barcode = models.OneToOneField(ProductBarcode, on_delete=models.CASCADE)
+    date_purchase_made = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return self.item.item_name
